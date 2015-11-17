@@ -8,4 +8,14 @@
     <string name="action_week_view">Week view</string>
     <string name="title_activity_info">Event</string>
     <string name="action_Agenda_view">Agenda</string>
+
+    <string name="title_activity_monthly_view">MonthlyView</string>
+
+    <!-- Dummy array, delete when incorporating -->
+    <string-array name="dropDownList">
+        <item>AgendaView</item>
+        <item>DailyView</item>
+        <item>WeeklyView</item>
+        <item>MonthlyView</item>
+    </string-array>
 </resources>
