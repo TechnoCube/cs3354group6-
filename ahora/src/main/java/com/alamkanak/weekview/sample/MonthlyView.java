@@ -104,12 +104,18 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
         transferList();
         LinkedList<Event> currentList = EventManager.getBetweenTimes(today, midnight);
 
-        if (currentList.isEmpty()) {
+        if (currentList == null || currentList.isEmpty()) {
             // No events today, set empty
-            monthlyEventTitle.setText("");
-            monthlyEventStartTime.setText("");
-            monthlyEventEndTime.setText("");
-            monthlyEventDescription.setText("");
+            monthlyEventTitle.setText(" ");
+            monthlyEventStartTime.setText(" ");
+            monthlyEventEndTime.setText(" ");
+            monthlyEventDescription.setText(" ");
+
+            // Set blank background color
+            monthlyEventTitle.setBackgroundColor(getResources().getColor(R.color.blank));
+            monthlyEventStartTime.setBackgroundColor(getResources().getColor(R.color.blank));
+            monthlyEventEndTime.setBackgroundColor(getResources().getColor(R.color.blank));
+            monthlyEventDescription.setBackgroundColor(getResources().getColor(R.color.blank));
         }
         else {
             // Get first event and set data
@@ -120,6 +126,12 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
             monthlyEventEndTime.setText("End: " + first.getEndDay() + first.getEndMonth() + first.getEndYear()
                     + ", " + first.getEndHour() + ":" + first.getEndMinute());
             monthlyEventDescription.setText(first.getDescription());
+
+            // Set background color based on category
+            monthlyEventTitle.setBackgroundColor(first.getColor());
+            monthlyEventStartTime.setBackgroundColor(first.getColor());
+            monthlyEventEndTime.setBackgroundColor(first.getColor());
+            monthlyEventDescription.setBackgroundColor(first.getColor());
         }
     }
 
@@ -138,6 +150,7 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
             receivedEvent.setEndTime(transferEvent.getEndTime().getTime());
             receivedEvent.setTitle(transferEvent.getName());
             receivedEvent.setDescription(transferEvent.getLocation());
+            receivedEvent.setColor(transferEvent.getColor());
 
             EventManager.addEvent(receivedEvent);
         }
@@ -173,12 +186,18 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
         // Retrieve list of selected day's events
         LinkedList<Event> selectedList = EventManager.getBetweenTimes(selectedDay, selectedMidnight);
 
-        if (selectedList.isEmpty()) {
+        if (selectedList == null || selectedList.isEmpty()) {
             // No events on selected day, set empty
-            monthlyEventTitle.setText("");
-            monthlyEventStartTime.setText("");
-            monthlyEventEndTime.setText("");
-            monthlyEventDescription.setText("");
+            monthlyEventTitle.setText(" ");
+            monthlyEventStartTime.setText(" ");
+            monthlyEventEndTime.setText(" ");
+            monthlyEventDescription.setText(" ");
+
+            // Set blank background color
+            monthlyEventTitle.setBackgroundColor(getResources().getColor(R.color.blank));
+            monthlyEventStartTime.setBackgroundColor(getResources().getColor(R.color.blank));
+            monthlyEventEndTime.setBackgroundColor(getResources().getColor(R.color.blank));
+            monthlyEventDescription.setBackgroundColor(getResources().getColor(R.color.blank));
         }
         else {
             // Get first event and set data
@@ -189,6 +208,12 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
             monthlyEventEndTime.setText("End: " + first.getEndDay() + first.getEndMonth() + first.getEndYear()
                     + ", " + first.getEndHour() + ":" + first.getEndMinute());
             monthlyEventDescription.setText(first.getDescription());
+
+            // Set background color based on category
+            monthlyEventTitle.setBackgroundColor(first.getColor());
+            monthlyEventStartTime.setBackgroundColor(first.getColor());
+            monthlyEventEndTime.setBackgroundColor(first.getColor());
+            monthlyEventDescription.setBackgroundColor(first.getColor());
         }
     }
 }
