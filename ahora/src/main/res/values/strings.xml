@@ -10,6 +10,20 @@
     <string name="title_activity_info">Event</string>
     <string name="action_Agenda_view">Agenda</string>
 
+    <string-array name="reminder_array">
+        <item>No reminder</item>
+        <item>At start time</item>
+        <item>1 Minute</item>
+        <item>5 Minutes</item>
+        <item>15 Minutes</item>
+        <item>30 Minutes</item>
+        <item>1 Hour</item>
+        <item>2 Hours</item>
+        <item>4 Hours</item>
+        <item>12 Hours</item>
+        <item>24 Hours</item>
+    </string-array>
+
     <string name="title_activity_monthly_view">MonthlyView</string>
 
     <!-- Dummy array, delete when incorporating -->

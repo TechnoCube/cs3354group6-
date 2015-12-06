@@ -312,6 +312,7 @@ class Event {
     private Date eventEnd; // event end time
     private String eventTitle; // Event title
     private String eventDescription; // Event description
+    private int eventColor; // Event category
 
     // Default Constructor
     public Event() {
@@ -320,6 +321,7 @@ class Event {
         eventEnd = new Date();
         eventTitle = new String();
         eventDescription = new String();
+        eventColor = 0;
     }
 
     // Copy Constructor
@@ -329,6 +331,7 @@ class Event {
         this.eventEnd = original.eventEnd;
         this.eventTitle = original.eventTitle;
         this.eventDescription = original.eventDescription;
+        this.eventColor = original.eventColor;
     }
 
     // Initial Data Complete Constructor
@@ -338,6 +341,7 @@ class Event {
         eventEnd = initialEnd;
         eventTitle = initialTitle;
         eventDescription = initialDescription;
+        eventColor = 0;
     }
 
     // Initial Times Object Partial Constructor
@@ -359,6 +363,7 @@ class Event {
         eventEnd = new Date();
         eventTitle = new String();
         eventDescription = new String();
+        eventColor = 0;
     }
 
     // Get Start Time Method
@@ -565,6 +570,12 @@ class Event {
         return eventDescription;
     }
 
+    // Get Event Category Method
+    public int getColor() {
+        // Return event category
+        return eventColor;
+    }
+
     // Set Start and End Times Method
     public void setTimes(Date newStart, Date newEnd) {
         // Set start and end dates
@@ -722,5 +733,11 @@ class Event {
     public void setDescription(String newDescription) {
         // Set event description
         eventDescription = newDescription;
+    }
+
+    // Set Event Category Method
+    public void setColor(int newColor) {
+        // Set event category
+        eventColor = newColor;
     }
 }
