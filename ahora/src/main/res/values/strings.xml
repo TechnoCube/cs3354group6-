@@ -2,6 +2,7 @@
 <resources>
     <string name="app_name">Ahora</string>
     <string name="add">"add"</string>
+    <string name="clear">"clear"</string>
     <string name="action_today">Today</string>
     <string name="action_day_view">Day view</string>
     <string name="action_three_day_view">3 day view</string>

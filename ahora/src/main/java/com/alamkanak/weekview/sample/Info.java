@@ -17,6 +17,7 @@
 
 package com.alamkanak.weekview.sample;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
@@ -48,6 +49,9 @@ public class Info extends ActionBarActivity {
     public String evenName;
     public String evenLocation;
     public int color;
+    public int repeatW = 0;
+    public int repeatM = 0;
+    public int repeatY = 0;
 
 
 
@@ -82,7 +86,7 @@ public class Info extends ActionBarActivity {
             int day = c.get(Calendar.DAY_OF_MONTH);
 
             // Create a new instance of DatePickerDialog and return it
-            return new DatePickerDialog(getActivity(), this, year, month, day);
+            return new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT,this, year, month, day);
         }
 
         public void onDateSet(DatePicker view, int year, int month, int day) {
@@ -111,8 +115,9 @@ public class Info extends ActionBarActivity {
             amPm = c.get(Calendar.AM_PM);
 
             // Create a new instance of TimePickerDialog and return it
-            return new TimePickerDialog(getActivity(), this, hour, minute,
+            return new TimePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT, this, hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
+
 
 
         }
@@ -130,6 +135,19 @@ public class Info extends ActionBarActivity {
             System.out.println(t);
         }
     }
+
+    public void showTimePickerDialog(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+        flag = 0;
+    }
+
+    public void showTimePickerDialog1(View v) {
+        DialogFragment newFragment = new TimePickerFragment();
+        newFragment.show(getSupportFragmentManager(), "timePicker");
+        flag = 1;
+    }
+
     public void red(View view){
         color = 1;
 
@@ -150,17 +168,7 @@ public class Info extends ActionBarActivity {
 
     }
 
-    public void showTimePickerDialog(View v) {
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
-        flag = 0;
-    }
 
-    public void showTimePickerDialog1(View v) {
-        DialogFragment newFragment = new TimePickerFragment();
-        newFragment.show(getSupportFragmentManager(), "timePicker");
-        flag = 1;
-    }
 
     public void backToMain(View view) {
 
@@ -188,7 +196,7 @@ public class Info extends ActionBarActivity {
 
 
 
-        WeekViewEvent event = new WeekViewEvent(1, evenName + "\n", evenLocation, startTime, endTime);
+        WeekViewEvent event = new WeekViewEvent(1, evenName , evenLocation, startTime, endTime);
 
         if(color == 1)
         {
@@ -205,6 +213,44 @@ public class Info extends ActionBarActivity {
             event.setColor(getResources().getColor(R.color.event_color_01));
         }
 
+        if(repeatW == 1 ){
+//            for(int y =2015; y < 2017; y++ ) {
+//                for (int m = 0; m < 12; m++) {
+//
+//                    Calendar check = Calendar.getInstance();
+//                    check.set(Calendar.MONTH, m);
+//                    int satNum = check.getActualMaximum(Calendar.WEEK_OF_MONTH);
+//
+//                    for (int i = 0; i < satNum; i ++) {
+//                        Calendar startTime = Calendar.getInstance();
+//                        startTime.set(Calendar.HOUR_OF_DAY, 0);
+//                        startTime.set(Calendar.MINUTE, 0);
+//                        startTime.set(Calendar.DAY_OF_WEEK, 7);
+//                        startTime.set(Calendar.WEEK_OF_MONTH, i);
+//                        startTime.set(Calendar.MONTH, m);
+//                        startTime.set(Calendar.YEAR, y);
+//
+//
+//
+//                        Calendar endTime = Calendar.getInstance();
+//                        endTime.set(Calendar.HOUR_OF_DAY, 24);
+//                        endTime.set(Calendar.MINUTE, 0);
+//                        endTime.set(Calendar.DAY_OF_WEEK, 7);
+//                        endTime.set(Calendar.WEEK_OF_MONTH, i);
+//                        endTime.set(Calendar.MONTH, m);
+//                        endTime.set(Calendar.YEAR, y);
+//
+//
+//
+//                        WeekViewEvent event = new WeekViewEvent(1, "", "", startTime, endTime);
+//                        MainActivity.addEventToList(event);
+//                    }
+//                }
+//            }
+            repeatW = 0;
+        }
+
+
         MainActivity.addEventToList(event);
         MainActivity.main.finish();
 
@@ -216,6 +262,18 @@ public class Info extends ActionBarActivity {
         MainActivity.removeEventFromList(MainActivity.getObjectEvent());
         MainActivity.main.finish();
         startActivity(new Intent(this, MainActivity.class));
+    }
+
+    public void repeatWeek(){
+        repeatW = 1;
+    }
+
+    public void repeatMonth(){
+        repeatM = 1;
+    }
+
+    public void repeatYear(){
+        repeatY = 1;
     }
 
 }
