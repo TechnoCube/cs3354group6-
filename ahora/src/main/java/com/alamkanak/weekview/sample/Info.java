@@ -180,38 +180,9 @@ public class Info extends ActionBarActivity {
         evenLocation = edit2.getText().toString();
 
 
-        Calendar startTime = Calendar.getInstance();
-        startTime.set(Calendar.HOUR_OF_DAY, startHour);
-        startTime.set(Calendar.DAY_OF_MONTH, startDay);
-        startTime.set(Calendar.MINUTE, startMinute);
-        startTime.set(Calendar.MONTH, startMonth);
-        startTime.set(Calendar.YEAR, myYear);
-
-        Calendar endTime = Calendar.getInstance();
-        endTime.set(Calendar.DAY_OF_MONTH, startDay);
-        endTime.set(Calendar.MONTH, startMonth);
-        endTime.set(Calendar.YEAR, myYear);
-        endTime.set(Calendar.HOUR_OF_DAY, endHour);
-        endTime.set(Calendar.MINUTE, endMinute);
 
 
 
-        WeekViewEvent event = new WeekViewEvent(1, evenName , evenLocation, startTime, endTime);
-
-        if(color == 1)
-        {
-            event.setColor(getResources().getColor(R.color.event_color_02));
-        }
-        if(color ==2){
-            event.setColor(getResources().getColor(R.color.event_color_04));
-        }
-        if(color == 3)
-        {
-            event.setColor(getResources().getColor(R.color.event_color_03));
-        }
-        if(color ==4){
-            event.setColor(getResources().getColor(R.color.event_color_01));
-        }
 
         if(repeatW == 1 ){
 //            for(int y =2015; y < 2017; y++ ) {
@@ -250,6 +221,85 @@ public class Info extends ActionBarActivity {
             repeatW = 0;
         }
 
+        if(repeatM == 1){
+            for(int y =2015; y < 2017; y++ ) {
+                for (int m = startMonth % startMonth; m < 12; m++) {
+
+                    Calendar startTimeM = Calendar.getInstance();
+                    startTimeM.set(Calendar.HOUR_OF_DAY, startHour);
+                    startTimeM.set(Calendar.DAY_OF_MONTH, startDay);
+                    startTimeM.set(Calendar.MINUTE, startMinute);
+                    startTimeM.set(Calendar.MONTH, m);
+                    startTimeM.set(Calendar.YEAR, y);
+
+                    Calendar endTimeM = Calendar.getInstance();
+                    endTimeM.set(Calendar.DAY_OF_MONTH, startDay);
+                    endTimeM.set(Calendar.MONTH, m);
+                    endTimeM.set(Calendar.YEAR, y);
+                    endTimeM.set(Calendar.HOUR_OF_DAY, endHour);
+                    endTimeM.set(Calendar.MINUTE, endMinute);
+
+
+                    WeekViewEvent eventM = new WeekViewEvent(1, evenName, evenLocation, startTimeM, endTimeM);
+
+                    if(color == 1)
+                    {
+                        eventM.setColor(getResources().getColor(R.color.event_color_02));
+                    }
+                    if(color ==2){
+                        eventM.setColor(getResources().getColor(R.color.event_color_04));
+                    }
+                    if(color == 3)
+                    {
+                        eventM.setColor(getResources().getColor(R.color.event_color_03));
+                    }
+                    if(color ==4){
+                        eventM.setColor(getResources().getColor(R.color.event_color_01));
+                    }
+
+                    repeatM = 0;
+                    MainActivity.addEventToList(eventM);
+                }
+            }
+            MainActivity.main.finish();
+            startActivity(new Intent(this, MainActivity.class));
+            finish();
+
+        }
+
+        Calendar startTime = Calendar.getInstance();
+        startTime.set(Calendar.HOUR_OF_DAY, startHour);
+        startTime.set(Calendar.DAY_OF_MONTH, startDay);
+        startTime.set(Calendar.MINUTE, startMinute);
+        startTime.set(Calendar.MONTH, startMonth);
+        startTime.set(Calendar.YEAR, myYear);
+
+        Calendar endTime = Calendar.getInstance();
+        endTime.set(Calendar.DAY_OF_MONTH, startDay);
+        endTime.set(Calendar.MONTH, startMonth);
+        endTime.set(Calendar.YEAR, myYear);
+        endTime.set(Calendar.HOUR_OF_DAY, endHour);
+        endTime.set(Calendar.MINUTE, endMinute);
+
+
+
+        WeekViewEvent event = new WeekViewEvent(1, evenName , evenLocation, startTime, endTime);
+
+        if(color == 1)
+        {
+            event.setColor(getResources().getColor(R.color.event_color_02));
+        }
+        if(color ==2){
+            event.setColor(getResources().getColor(R.color.event_color_04));
+        }
+        if(color == 3)
+        {
+            event.setColor(getResources().getColor(R.color.event_color_03));
+        }
+        if(color ==4){
+            event.setColor(getResources().getColor(R.color.event_color_01));
+        }
+
 
         MainActivity.addEventToList(event);
         MainActivity.main.finish();
@@ -264,15 +314,15 @@ public class Info extends ActionBarActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
-    public void repeatWeek(){
+    public void repeatWeek(View view){
         repeatW = 1;
     }
 
-    public void repeatMonth(){
+    public void repeatMonth(View view){
         repeatM = 1;
     }
 
-    public void repeatYear(){
+    public void repeatYear(View view){
         repeatY = 1;
     }
 
