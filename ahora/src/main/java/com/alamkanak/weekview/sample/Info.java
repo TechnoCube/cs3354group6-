@@ -1,19 +1,19 @@
 /***********************************************************************
-*our group created this class (info) and the following methods in main
+ * our group created this class (info) and the following methods in main
  * getEventClickFlag()/setEventClickFlag()/getEname()
  * getElocation()/getObjectEvent()/addEventToList(WeekViewEvent event)/
  * removeEventFromList(WeekViewEvent event)
-*our group created the XML layout info and all interaction between info and main class
-*the info class creates the user input form
-*it calls the date and time pickers captures the user input
-*and creates an WeekViewEvent and passes it to an array list
-*List<WeekViewEvent> mEventList = new ArrayList<>() in the MainActivity
+ * our group created the XML layout info and all interaction between info and main class
+ * the info class creates the user input form
+ * it calls the date and time pickers captures the user input
+ * and creates an WeekViewEvent and passes it to an array list
+ * List<WeekViewEvent> mEventList = new ArrayList<>() in the MainActivity
  * MainActivy calls the methods in the library to display the calendar
-*************************************************************************
-*The display is handled by alamkanak weekview library
-*Created by Raquib-ul-Alam Kanak on 7/21/2014.
-*Website: http://alamkanak.github.io/
-*************************************************************************/
+ * ************************************************************************
+ * The display is handled by alamkanak weekview library
+ * Created by Raquib-ul-Alam Kanak on 7/21/2014.
+ * Website: http://alamkanak.github.io/
+ *************************************************************************/
 
 package com.alamkanak.weekview.sample;
 
@@ -55,15 +55,13 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
     public long reminderms;
 
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_info);
 
         //this is to edit an event not to add
-        if(MainActivity.getEventClickFlag() != 0){
+        if (MainActivity.getEventClickFlag() != 0) {
             EditText eD = (EditText) findViewById(R.id.editText);
             eD.setText(MainActivity.getEname());
             EditText eD1 = (EditText) findViewById(R.id.editText2);
@@ -77,9 +75,9 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
         reminderSpinner.setOnItemSelectedListener(this);
         // Create an ArrayAdapter using the string array and a default spinner layout
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
-                R.array.reminder_array, android.R.layout.reminder_spinner_item);
+                R.array.reminder_array, R.layout.reminder_spinner_item);
         // Specify the layout to use when the list of choices appears
-        adapter.setDropDownViewResource(android.R.layout.reminder_spinner_item);
+        adapter.setDropDownViewResource(R.layout.reminder_spinner_item);
         // Apply the adapter to the spinner
         reminderSpinner.setAdapter(adapter);
     }
@@ -103,7 +101,7 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
             myYear = year;
             startMonth = month;
             startDay = day;
-            String t = " year : " + year + " month : " + month + " day : " + day ;
+            String t = " year : " + year + " month : " + month + " day : " + day;
             System.out.println(t);
         }
     }
@@ -132,10 +130,10 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
         }
 
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-            if(flag == 0 ) {
+            if (flag == 0) {
                 startHour = hourOfDay;
                 startMinute = minute;
-            }else{
+            } else {
 
                 endHour = hourOfDay;
                 endMinute = minute;
@@ -144,22 +142,23 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
             System.out.println(t);
         }
     }
-    public void red(View view){
+
+    public void red(View view) {
         color = 1;
 
     }
 
-    public void yellow(View view){
+    public void yellow(View view) {
         color = 2;
 
     }
 
-    public void green(View view){
+    public void green(View view) {
         color = 3;
 
     }
 
-    public void blue(View view){
+    public void blue(View view) {
         color = 4;
 
     }
@@ -179,8 +178,7 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
     public void backToMain(View view) {
 
 
-
-        EditText edit1 = (EditText)findViewById(R.id.editText);
+        EditText edit1 = (EditText) findViewById(R.id.editText);
         evenName = edit1.getText().toString();
         EditText edit2 = (EditText) findViewById(R.id.editText2);
         evenLocation = edit2.getText().toString();
@@ -201,25 +199,22 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
         endTime.set(Calendar.MINUTE, endMinute);
 
 
-
         WeekViewEvent event = new WeekViewEvent(1, evenName + "\n", evenLocation, startTime, endTime);
 
-        if(color == 1)
-        {
+        if (color == 1) {
             event.setColor(getResources().getColor(R.color.event_color_02));
         }
-        if(color ==2){
+        if (color == 2) {
             event.setColor(getResources().getColor(R.color.event_color_04));
         }
-        if(color == 3)
-        {
+        if (color == 3) {
             event.setColor(getResources().getColor(R.color.event_color_03));
         }
-        if(color ==4){
+        if (color == 4) {
             event.setColor(getResources().getColor(R.color.event_color_01));
         }
 
-        Toast.makeText(getApplicationContext(), Long.toString(reminderms), Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), ("reminder milliseconds: " + Long.toString(reminderms)), Toast.LENGTH_LONG).show();
         MainActivity.addEventToList(event);
         MainActivity.main.finish();
 
@@ -227,7 +222,7 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
         finish();
     }
 
-    public void remove(View view){
+    public void remove(View view) {
         MainActivity.removeEventFromList(MainActivity.getObjectEvent());
         MainActivity.main.finish();
         startActivity(new Intent(this, MainActivity.class));
@@ -237,29 +232,41 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         // Switch statement to set the proper reminder time
         switch (pos) {
-            case 0: reminderms = -1;
+            case 0:
+                reminderms = -1;
                 break;
-            case 1: reminderms = 0;
+            case 1:
+                reminderms = 0;
                 break;
-            case 2: reminderms = 1000 * 60;
+            case 2:
+                reminderms = 1000 * 60;
                 break;
-            case 3: reminderms = 1000 * 60 * 5;
+            case 3:
+                reminderms = 1000 * 60 * 5;
                 break;
-            case 4: reminderms = 1000 * 60 * 15;
+            case 4:
+                reminderms = 1000 * 60 * 15;
                 break;
-            case 5: reminderms = 1000 * 60 * 30;
+            case 5:
+                reminderms = 1000 * 60 * 30;
                 break;
-            case 6: reminderms = 1000 * 60 * 60;
+            case 6:
+                reminderms = 1000 * 60 * 60;
                 break;
-            case 7: reminderms = 1000 * 60 * 60 * 2;
+            case 7:
+                reminderms = 1000 * 60 * 60 * 2;
                 break;
-            case 8: reminderms = 1000 * 60 * 60 * 4;
+            case 8:
+                reminderms = 1000 * 60 * 60 * 4;
                 break;
-            case 9: reminderms = 1000 * 60 * 60 * 12;
+            case 9:
+                reminderms = 1000 * 60 * 60 * 12;
                 break;
-            case 10: reminderms = 1000 * 60 * 60 * 24;
+            case 10:
+                reminderms = 1000 * 60 * 60 * 24;
                 break;
-            default: reminderms = -1;
+            default:
+                reminderms = -1;
                 break;
         }
     }

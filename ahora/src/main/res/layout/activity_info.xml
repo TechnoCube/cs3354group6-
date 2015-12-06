@@ -131,26 +131,25 @@
         </LinearLayout>
 
         <LinearLayout
-            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginTop="20dp"
-            android:layout_gravity="center">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <TextView
+                android:id="@+id/reminder_textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="25dp"
-                android:textSize="18sp"
-                android:layout_gravity="center"
                 android:text="Reminder: "
-                android:id="@+id/reminder_textView" />
+                android:textSize="18sp" />
 
             <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:id="@+id/reminder_spinner"
-                android:layout_gravity="center"/>
+                android:layout_width="175dp"
+                android:layout_height="wrap_content" />
+
         </LinearLayout>
 
         <LinearLayout
