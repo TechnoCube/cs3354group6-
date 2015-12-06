@@ -26,16 +26,20 @@ import android.support.v4.app.DialogFragment;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.DateFormat;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekViewEvent;
 
 import java.util.Calendar;
 
 
-public class Info extends ActionBarActivity {
+public class Info extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
     public int myYear;
     public int startMonth;
     public int startDay;
@@ -48,6 +52,7 @@ public class Info extends ActionBarActivity {
     public String evenName;
     public String evenLocation;
     public int color;
+    public long reminderms;
 
 
 
@@ -67,7 +72,16 @@ public class Info extends ActionBarActivity {
             MainActivity.setEventClickFlag();
         }
 
-
+        // Populates the reminder spinner
+        Spinner reminderSpinner = (Spinner) findViewById(R.id.reminder_spinner);
+        reminderSpinner.setOnItemSelectedListener(this);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.reminder_array, android.R.layout.reminder_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(android.R.layout.reminder_spinner_item);
+        // Apply the adapter to the spinner
+        reminderSpinner.setAdapter(adapter);
     }
 
     public class DatePickerFragment extends DialogFragment
@@ -205,6 +219,7 @@ public class Info extends ActionBarActivity {
             event.setColor(getResources().getColor(R.color.event_color_01));
         }
 
+        Toast.makeText(getApplicationContext(), Long.toString(reminderms), Toast.LENGTH_LONG).show();
         MainActivity.addEventToList(event);
         MainActivity.main.finish();
 
@@ -218,6 +233,40 @@ public class Info extends ActionBarActivity {
         startActivity(new Intent(this, MainActivity.class));
     }
 
+    // Overridden spinner methods for reminder selection
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        // Switch statement to set the proper reminder time
+        switch (pos) {
+            case 0: reminderms = -1;
+                break;
+            case 1: reminderms = 0;
+                break;
+            case 2: reminderms = 1000 * 60;
+                break;
+            case 3: reminderms = 1000 * 60 * 5;
+                break;
+            case 4: reminderms = 1000 * 60 * 15;
+                break;
+            case 5: reminderms = 1000 * 60 * 30;
+                break;
+            case 6: reminderms = 1000 * 60 * 60;
+                break;
+            case 7: reminderms = 1000 * 60 * 60 * 2;
+                break;
+            case 8: reminderms = 1000 * 60 * 60 * 4;
+                break;
+            case 9: reminderms = 1000 * 60 * 60 * 12;
+                break;
+            case 10: reminderms = 1000 * 60 * 60 * 24;
+                break;
+            default: reminderms = -1;
+                break;
+        }
+    }
+
+    public void onNothingSelected(AdapterView<?> parent) {
+        reminderms = -1;
+    }
 }
 
 
