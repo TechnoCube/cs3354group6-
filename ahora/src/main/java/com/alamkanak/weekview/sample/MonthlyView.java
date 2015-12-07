@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekViewEvent;
 import com.alamkanak.weekview.sample.Event;
@@ -25,13 +28,14 @@ import java.util.LinkedList;
  * clicking on a day displays the first event of that day
  */
 
-public class MonthlyView extends Activity implements CalendarView.OnDateChangeListener {
+public class MonthlyView extends Activity implements CalendarView.OnDateChangeListener, OnClickListener {
 
     // Widget Variables
     private TextView monthlyEventTitle;
     private TextView monthlyEventStartTime;
     private TextView monthlyEventEndTime;
     private TextView monthlyEventDescription;
+    private Button monthlyBackButton;
     private CalendarView monthlyCalendar;
     private Spinner monthlySpinner;
 
@@ -47,47 +51,49 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
         monthlyEventEndTime = (TextView) findViewById(R.id.monthlyEventEndTime);
         monthlyEventDescription = (TextView) findViewById(R.id.monthlyEventDescription);
         monthlyCalendar = (CalendarView) findViewById(R.id.monthlyCalendar);
-        monthlySpinner = (Spinner) findViewById(R.id.monthlySpinner);
+        monthlyBackButton = (Button) findViewById(R.id.monthlyBackButton);
+//        monthlySpinner = (Spinner) findViewById(R.id.monthlySpinner);
 
-        // Drop down spinner
-        ArrayAdapter monthlyAdapter = ArrayAdapter.createFromResource(this, R.array.dropDownList, android.R.layout.simple_spinner_item);
-        monthlyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        monthlySpinner.setAdapter(monthlyAdapter);
-        monthlySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                if (position > 0) {
-                    Intent spinnerIntent;
-
-                    //AgendaView
-                    if (position == 1) {
-                        spinnerIntent = new Intent(MonthlyView.this, MainActivity.class);
-                        startActivity(spinnerIntent);
-                    }
-                    //DailyView
-                    if (position == 2) {
-                        spinnerIntent = new Intent(MonthlyView.this, MainActivity.class);
-                        startActivity(spinnerIntent);
-                    }
-                    //WeeklyView
-                    if (position == 3) {
-                        spinnerIntent = new Intent(MonthlyView.this, MonthlyView.class);
-                        startActivity(spinnerIntent);
-                    }
-                    //MonthlyView
-                    if (position == 4) {
-                        spinnerIntent = new Intent(MonthlyView.this, MainActivity.class);
-                        startActivity(spinnerIntent);
-                    }
-                }
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
+//        // Drop down spinner
+//        ArrayAdapter monthlyAdapter = ArrayAdapter.createFromResource(this, R.array.dropDownList, android.R.layout.simple_spinner_item);
+//        monthlyAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+//        monthlySpinner.setAdapter(monthlyAdapter);
+//        monthlySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                if (position > 0) {
+//                    Intent spinnerIntent;
+//
+//                    //AgendaView
+//                    if (position == 1) {
+//                        spinnerIntent = new Intent(MonthlyView.this, MainActivity.class);
+//                        startActivity(spinnerIntent);
+//                    }
+//                    //DailyView
+//                    if (position == 2) {
+//                        spinnerIntent = new Intent(MonthlyView.this, MainActivity.class);
+//                        startActivity(spinnerIntent);
+//                    }
+//                    //WeeklyView
+//                    if (position == 3) {
+//                        spinnerIntent = new Intent(MonthlyView.this, MainActivity.class);
+//                        startActivity(spinnerIntent);
+//                    }
+//                    //MonthlyView
+//                    if (position == 4) {
+//                        spinnerIntent = new Intent(MonthlyView.this, MonthlyView.class);
+//                        startActivity(spinnerIntent);
+//                    }
+//                }
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
 
         // Setting listener
+        monthlyBackButton.setOnClickListener(this);
         monthlyCalendar.setOnDateChangeListener(this);
 
         // Get current time and start static event manager
@@ -133,6 +139,12 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
             monthlyEventEndTime.setBackgroundColor(first.getColor());
             monthlyEventDescription.setBackgroundColor(first.getColor());
         }
+    }
+
+    // Method to react to back button being clicked
+    public void onClick(View back) {
+        if (back.getId() == R.id.monthlyBackButton)
+            startActivity(new Intent(this, MainActivity.class));
     }
 
     // Method to populate event manager using events arraylist

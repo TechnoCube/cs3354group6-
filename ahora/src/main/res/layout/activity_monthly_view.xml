@@ -5,13 +5,19 @@
     android:layout_height="match_parent"
     android:clickable="true" >
 
-    <Spinner
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.025"
-        android:id="@+id/monthlySpinner"
-        android:spinnerMode="dropdown"
-        />
+        android:id="@+id/monthlyBackButton"
+        android:text="Back to main" />
+
+    <!--<Spinner-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_weight="0.025"-->
+        <!--android:id="@+id/monthlySpinner"-->
+        <!--android:spinnerMode="dropdown"-->
+        <!--/>-->
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -36,28 +42,28 @@
 
         <TextView
             android:id="@+id/monthlyEventTitle"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Lorem Ipsum"
             android:textSize="30sp"/>
 
         <TextView
             android:id="@+id/monthlyEventStartTime"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="1 January 1970: 00:00"
             android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/monthlyEventEndTime"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="1 January 1970: 00:00"
             android:textSize="20sp"/>
 
         <TextView
             android:id="@+id/monthlyEventDescription"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="dolor sit amet"
             android:textSize="20sp"/>
