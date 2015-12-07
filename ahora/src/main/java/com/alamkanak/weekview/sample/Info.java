@@ -17,12 +17,17 @@
 
 package com.alamkanak.weekview.sample;
 
+import android.app.AlarmManager;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.text.format.DateFormat;
 import android.view.View;
@@ -33,6 +38,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 import android.widget.Toast;
+
 
 import com.alamkanak.weekview.WeekViewEvent;
 
@@ -53,6 +59,7 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
     public String evenLocation;
     public int color;
     public long reminderms;
+    public NotificationManager notificationManager;
 
 
     @Override
@@ -125,6 +132,8 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
             // Create a new instance of TimePickerDialog and return it
             return new TimePickerDialog(getActivity(), this, hour, minute,
                     DateFormat.is24HourFormat(getActivity()));
+
+
 
 
         }
@@ -214,7 +223,7 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
             event.setColor(getResources().getColor(R.color.event_color_01));
         }
 
-        Toast.makeText(getApplicationContext(), ("reminder milliseconds: " + Long.toString(reminderms)), Toast.LENGTH_LONG).show();
+        reminderSet();
         MainActivity.addEventToList(event);
         MainActivity.main.finish();
 
@@ -272,8 +281,36 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
     }
 
     public void onNothingSelected(AdapterView<?> parent) {
+
         reminderms = -1;
     }
+
+    public void reminderSet() {
+
+        // Flag for whether or not a reminder needs to be created
+        if (reminderms != -1) {
+
+            Intent reminderIntent = new Intent("SET_REMINDER");
+            reminderIntent.putExtra("hour", startHour);
+            reminderIntent.putExtra("min", startMinute);
+            reminderIntent.putExtra("title", evenName);
+
+            PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 0, reminderIntent, 0);
+            AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+            // Calculate reminder time in milliseconds
+            Calendar reminderTime = Calendar.getInstance();
+            reminderTime.set(Calendar.HOUR_OF_DAY, startHour);
+            reminderTime.set(Calendar.DAY_OF_MONTH, startDay);
+            reminderTime.set(Calendar.MINUTE, startMinute);
+            reminderTime.set(Calendar.MONTH, startMonth);
+            reminderTime.set(Calendar.YEAR, myYear);
+            alarmManager.set(AlarmManager.RTC_WAKEUP, (reminderTime.getTimeInMillis() - reminderms), pendingIntent);
+            Toast.makeText(this, "Reminder set", Toast.LENGTH_LONG).show();
+        }
+    }
+
+
 }
 
 
