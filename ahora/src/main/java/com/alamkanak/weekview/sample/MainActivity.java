@@ -164,8 +164,8 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
                     mWeekView.setEventTextSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 10, getResources().getDisplayMetrics()));
                 }
                 return true;
-            case R.id.action_Agenda_view: {
-                //startActivity(new Intent(MainActivity.this, agenda.class));
+            case R.id.action_Monthly_view: {
+                startActivity(new Intent(this, MonthlyView.class));
             }
             return true;
         }

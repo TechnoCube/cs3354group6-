@@ -24,8 +24,8 @@
             android:title="@string/action_week_view"
             android:orderInCategory="100"
             app:showAsAction="ifRoom"/>
-        <item android:id="@+id/action_Agenda_view"
-            android:title="@string/action_Agenda_view"
+        <item android:id="@+id/action_Monthly_view"
+            android:title="@string/action_Monthly_view"
             android:orderInCategory="100"
             app:showAsAction="ifRoom"/>
     </group>
