@@ -87,10 +87,18 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
             eD1.setText(MainActivity.getElocation());
             MainActivity.removeEventFromList(MainActivity.getObjectEvent());
             MainActivity.setEventClickFlag();
-
-
         }
 
+        // Populates the reminder spinner
+        Spinner reminderSpinner = (Spinner) findViewById(R.id.reminder_spinner);
+        reminderSpinner.setOnItemSelectedListener(this);
+        // Create an ArrayAdapter using the string array and a default spinner layout
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
+                R.array.reminder_array, R.layout.reminder_spinner_item);
+        // Specify the layout to use when the list of choices appears
+        adapter.setDropDownViewResource(R.layout.reminder_spinner_item);
+        // Apply the adapter to the spinner
+        reminderSpinner.setAdapter(adapter);
 
     }
 

@@ -115,7 +115,7 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
         // the week view. This is optional.
         setupDateTimeInterpreter(false);
 
-        clearAll();
+        //clearAll();
 
         if(mEventList.isEmpty()){
             addWeekEnds();
