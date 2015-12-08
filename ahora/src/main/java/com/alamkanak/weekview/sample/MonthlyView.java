@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.CalendarView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.alamkanak.weekview.WeekViewEvent;
 import com.alamkanak.weekview.sample.Event;
@@ -24,10 +23,9 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 /**
- * Monthly view class, displays a monthly calendar,
- * clicking on a day displays the first event of that day
+ * Monthly view class.
+ * Displays a monthly calendar, clicking on a day displays the first event of that day.
  */
-
 public class MonthlyView extends Activity implements CalendarView.OnDateChangeListener, OnClickListener {
 
     // Widget Variables
@@ -39,6 +37,12 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
     private CalendarView monthlyCalendar;
     private Spinner monthlySpinner;
 
+    /**
+     * Overridden onCreate method.
+     * Creates monthly calendar view.
+     * @param savedInstanceState: Bundle passed by android
+     * @return void
+     */
     @SuppressWarnings("deprecation")
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -92,7 +96,7 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
 //            }
 //        });
 
-        // Setting listener
+        // Setting listeners
         monthlyBackButton.setOnClickListener(this);
         monthlyCalendar.setOnDateChangeListener(this);
 
@@ -141,13 +145,23 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
         }
     }
 
-    // Method to react to back button being clicked
+    /**
+     * Overridden onClick method.
+     * Responds to a click on button.
+     * @param back: View object, action is only taken if view is back button.
+     * @return void
+     */
+    @Override
     public void onClick(View back) {
         if (back.getId() == R.id.monthlyBackButton)
             startActivity(new Intent(this, MainActivity.class));
     }
 
-    // Method to populate event manager using events arraylist
+    /**
+     * Populates event manager.
+     * Transfers events from a static array list into the event manager.
+     * @return void
+     */
     private void transferList() {
         Iterator<WeekViewEvent> transferIterator = MainActivity.getmEventList().iterator();
         WeekViewEvent transferEvent;
@@ -168,6 +182,11 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
         }
     }
 
+    /**
+     * Overridden onDestroy method.
+     * Closes event manager on destruction.
+     * @return void
+     */
     @Override
     public void onDestroy() {
         EventManager.noFileEnd(); // End static event manager
@@ -175,6 +194,15 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
         super.onDestroy();
     }
 
+    /**
+     * Overridden onSelectedDayChange method.
+     * Updates text widgets based on calendar selection.
+     * @param view: CalendarView object
+     * @param year: Selected calendar year
+     * @param month: Selected calendar month
+     * @param dayOfMonth: Selected calendar day
+     * @return void
+     */
     @SuppressWarnings("deprecation")
     @Override
     public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth){

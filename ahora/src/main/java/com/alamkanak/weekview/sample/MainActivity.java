@@ -27,6 +27,8 @@ import java.util.Locale;
 
 
 /**
+ * Main activity class.
+ * Creates weekly and daily views, uses library
  * Created by Raquib-ul-Alam Kanak on 7/21/2014.
  * Website: http://alamkanak.github.io/
  */
@@ -60,7 +62,12 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
         return  mEventList;
     }
 
-//testing git hub
+    /**
+     * Overridden onCreate method.
+     * Creates layout for daily and weekly views.
+     * @param savedInstanceState: Bundle passed by android
+     * @return void
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,13 +106,24 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
 
     }
 
-
+    /**
+     * Overridden onCreateOptionsMenu method.
+     * Inflates menu.
+     * @param menu: Menu object
+     * @return boolean: Returns true
+     */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main, menu);
         return true;
     }
 
+    /**
+     * Overridden onOptionsItemSelected method.
+     * Handles menu item selection.
+     * @param item: Item object
+     * @return boolean: Returns true
+     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
@@ -166,10 +184,11 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
     }
 
     /**
+     * Set up interpreter.
      * Set up a date time interpreter which will show short date values when in week view and long
      * date values otherwise.
-     *
-     * @param shortDate True if the date values should be short.
+     * @param shortDate: True if the date values should be short.
+     * @return void
      */
     private void setupDateTimeInterpreter(final boolean shortDate) {
         mWeekView.setDateTimeInterpreter(new DateTimeInterpreter() {
@@ -194,7 +213,13 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
         });
     }
 
-
+    /**
+     * Overridden onMonthChange method.
+     * Loads a new list into events list.
+     * @param newYear: year of the events required by the view.
+     * @param newMonth: month of the events required by the view <br/><strong>1 based (not like JAVA API) --> January = 1 and December = 12</strong>.
+     * @return List
+     */
     @Override
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
 
@@ -205,10 +230,23 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
         return mEventList;
     }
 
+    /**
+     * Returns event title.
+     * Creates and returns a string containing the event title.
+     * @param time: Calendar time of event
+     * @return String
+     */
     private String getEventTitle(Calendar time) {
         return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH));
     }
 
+    /**
+     * Overridden onEventClick method.
+     * Displays event clicked on.
+     * @param event: event clicked.
+     * @param eventRect: view containing the clicked event.
+     * @return void
+     */
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
         Toast.makeText(MainActivity.this, "Clicked " + event.getName(), Toast.LENGTH_SHORT).show();
@@ -221,37 +259,73 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
 
     }
 
+    /**
+     * Get event name method.
+     * @return String: Event name
+     */
     public static String getEname() {
 
         return eName;
     }
 
+    /**
+     * Get event location method.
+     * @return String: Event location
+     */
     public static String getElocation() {
         return eLocation;
     }
 
+    /**
+     * Get event object method.
+     * @return WeekViewEvent: Event object
+     */
     public static WeekViewEvent getObjectEvent(){
         return eventObject;
     }
 
 
+    /**
+     * Overridden onEventLongPress method.
+     * Displays event long pressed.
+     * @param event: event clicked.
+     * @param eventRect: view containing the clicked event.
+     * @return void
+     */
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
         Toast.makeText(MainActivity.this, "Long pressed event: " + event.getName(), Toast.LENGTH_SHORT).show();
 
     }
 
-    // This function will allow other classes to add events to the event list
+    /**
+     * Adds event to list.
+     * Adds a given event to private static list.
+     * @param event: Event to add
+     * @return void
+     */
     public static void addEventToList(WeekViewEvent event) {
 
         mEventList.add(event);
     }
 
     //remove object fom the list
+
+    /**
+     * Removes event from list.
+     * Removes a given event from private static list.
+     * @param event: Event to remove
+     * @return void
+     */
     public static void removeEventFromList(WeekViewEvent event) {
         mEventList.remove(event);
     }
 
+    /**
+     * Overridden onDestroy method.
+     * Writes contents of event list to file.
+     * @return void
+     */
     public void onDestroy() {
         super.onDestroy();
 
