@@ -52,15 +52,25 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
     public static final int event_color_06 = 0x7b0c005c;
 
 
-
+    /**
+     * Method to get event click flag.
+     * @return Event click flag
+     */
     public static int getEventClickFlag() {
         return eventClickFlag;
     }
 
+    /**
+     * Method to set event click flag
+     */
     public static void setEventClickFlag(){
         eventClickFlag = 0;
     }
 
+    /**
+     * Method to get static event list.
+     * @return Event list
+     */
     public static List<WeekViewEvent> getmEventList(){
         return  mEventList;
     }
@@ -69,7 +79,6 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
      * Overridden onCreate method.
      * Creates layout for daily and weekly views.
      * @param savedInstanceState: Bundle passed by android
-     * @return void
      */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +133,7 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
      * Overridden onCreateOptionsMenu method.
      * Inflates menu.
      * @param menu: Menu object
-     * @return boolean: Returns true
+     * @return Always returns true
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -136,7 +145,7 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
      * Overridden onOptionsItemSelected method.
      * Handles menu item selection.
      * @param item: Item object
-     * @return boolean: Returns true
+     * @return Always returns true
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -206,7 +215,6 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
      * Set up a date time interpreter which will show short date values when in week view and long
      * date values otherwise.
      * @param shortDate: True if the date values should be short.
-     * @return void
      */
     private void setupDateTimeInterpreter(final boolean shortDate) {
         mWeekView.setDateTimeInterpreter(new DateTimeInterpreter() {
@@ -236,7 +244,7 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
      * Loads a new list into events list.
      * @param newYear: year of the events required by the view.
      * @param newMonth: month of the events required by the view <br/><strong>1 based (not like JAVA API) --> January = 1 and December = 12</strong>.
-     * @return List
+     * @return Event list
      */
     @Override
     public List<WeekViewEvent> onMonthChange(int newYear, int newMonth) {
@@ -255,7 +263,7 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
      * Returns event title.
      * Creates and returns a string containing the event title.
      * @param time: Calendar time of event
-     * @return String
+     * @return Formatted event String
      */
     private String getEventTitle(Calendar time) {
         return String.format("Event of %02d:%02d %s/%d", time.get(Calendar.HOUR_OF_DAY), time.get(Calendar.MINUTE), time.get(Calendar.MONTH) + 1, time.get(Calendar.DAY_OF_MONTH));
@@ -266,7 +274,6 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
      * Displays event clicked on.
      * @param event: event clicked.
      * @param eventRect: view containing the clicked event.
-     * @return void
      */
     @Override
     public void onEventClick(WeekViewEvent event, RectF eventRect) {
@@ -282,7 +289,7 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
 
     /**
      * Get event name method.
-     * @return String: Event name
+     * @return Event name
      */
     public static String getEname() {
 
@@ -291,7 +298,7 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
 
     /**
      * Get event location method.
-     * @return String: Event location
+     * @return Event location
      */
     public static String getElocation() {
         return eLocation;
@@ -299,7 +306,7 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
 
     /**
      * Get event object method.
-     * @return WeekViewEvent: Event object
+     * @return Event object
      */
     public static WeekViewEvent getObjectEvent(){
         return eventObject;
@@ -311,7 +318,6 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
      * Displays event long pressed.
      * @param event: event clicked.
      * @param eventRect: view containing the clicked event.
-     * @return void
      */
     @Override
     public void onEventLongPress(WeekViewEvent event, RectF eventRect) {
@@ -323,20 +329,16 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
      * Adds event to list.
      * Adds a given event to private static list.
      * @param event: Event to add
-     * @return void
      */
     public static void addEventToList(WeekViewEvent event) {
 
         mEventList.add(event);
     }
 
-    //remove object fom the list
-
     /**
      * Removes event from list.
      * Removes a given event from private static list.
      * @param event: Event to remove
-     * @return void
      */
     public static void removeEventFromList(WeekViewEvent event) {
         mEventList.remove(event);
@@ -345,7 +347,6 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
     /**
      * Overridden onDestroy method.
      * Writes contents of event list to file.
-     * @return void
      */
     public void onDestroy() {
         super.onDestroy();
@@ -361,6 +362,10 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
         }
     }
 
+    /**
+     * Marks weekends as events.
+     * Method to mark weekends with special events in list.
+     */
     public void addWeekEnds(){
 
     for(int y =2015; y < 2017; y++ ) {
@@ -431,6 +436,10 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
 
     }
 
+    /**
+     * Mark holidays as events.
+     * Method to mark holidays in eevent list with special event.
+     */
     public void holidays(){
         for(int y = 2015; y < 2018; y++)
         {
@@ -628,6 +637,10 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
 
     }
 
+    /**
+     * Clears event list.
+     * Method which clears static list of events.
+     */
     public void clearAll(){
         mEventList.clear();
     }

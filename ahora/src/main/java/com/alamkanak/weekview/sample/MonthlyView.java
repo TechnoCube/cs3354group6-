@@ -41,7 +41,6 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
      * Overridden onCreate method.
      * Creates monthly calendar view.
      * @param savedInstanceState: Bundle passed by android
-     * @return void
      */
     @SuppressWarnings("deprecation")
     @Override
@@ -149,7 +148,6 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
      * Overridden onClick method.
      * Responds to a click on button.
      * @param back: View object, action is only taken if view is back button.
-     * @return void
      */
     @Override
     public void onClick(View back) {
@@ -160,7 +158,6 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
     /**
      * Populates event manager.
      * Transfers events from a static array list into the event manager.
-     * @return void
      */
     private void transferList() {
         Iterator<WeekViewEvent> transferIterator = MainActivity.getmEventList().iterator();
@@ -185,7 +182,6 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
     /**
      * Overridden onDestroy method.
      * Closes event manager on destruction.
-     * @return void
      */
     @Override
     public void onDestroy() {
@@ -201,7 +197,6 @@ public class MonthlyView extends Activity implements CalendarView.OnDateChangeLi
      * @param year: Selected calendar year
      * @param month: Selected calendar month
      * @param dayOfMonth: Selected calendar day
-     * @return void
      */
     @SuppressWarnings("deprecation")
     @Override
