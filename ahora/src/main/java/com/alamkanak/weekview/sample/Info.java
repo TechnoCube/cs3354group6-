@@ -45,7 +45,10 @@ import com.alamkanak.weekview.WeekViewEvent;
 
 import java.util.Calendar;
 
-
+/**
+ * Info class to add events.
+ * Activity which allows events to be created and added into list.
+ */
 public class Info extends ActionBarActivity implements AdapterView.OnItemSelectedListener {
     public int myYear;
     public int startMonth;
@@ -66,8 +69,11 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
     public NotificationManager notificationManager;
 
 
-
-
+    /**
+     * Overridden onCreate method.
+     * Launches info class and opens fragments to obtain time, date and event info.
+     * @param savedInstanceState: Bundle passed by android
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,9 +92,17 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
 
     }
 
+    /**
+     * Fragment for date picker.
+     */
     public class DatePickerFragment extends DialogFragment
             implements DatePickerDialog.OnDateSetListener {
 
+        /**
+         * Overridden onCreateDialog method.
+         * @param savedInstanceState: Bundle passed by android
+         * @return Date picker dialog
+         */
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current date as the default date in the picker
@@ -101,6 +115,13 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
             return new DatePickerDialog(getActivity(), AlertDialog.THEME_HOLO_LIGHT,this, year, month, day);
         }
 
+        /**
+         * Date set method.
+         * @param view: Date picker object
+         * @param year: Set year
+         * @param month: Set month
+         * @param day: Set day
+         */
         public void onDateSet(DatePicker view, int year, int month, int day) {
             myYear = year;
             startMonth = month;
@@ -110,14 +131,26 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
         }
     }
 
+    /**
+     * Display date picker.
+     * @param v: view object
+     */
     public void showDatePickerDialog(View v) {
         DialogFragment newFragment = new DatePickerFragment();
         newFragment.show(getSupportFragmentManager(), "datePicker");
     }
 
+    /**
+     * Fragment for time picker
+     */
     public class TimePickerFragment extends DialogFragment
             implements TimePickerDialog.OnTimeSetListener {
 
+        /**
+         * Overridden onCreateDialog method.
+         * @param savedInstanceState: Bundle passed by android
+         * @return Time picker dialog
+         */
         @Override
         public Dialog onCreateDialog(Bundle savedInstanceState) {
             // Use the current time as the default values for the picker
@@ -136,6 +169,12 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
 
         }
 
+        /**
+         * Time set method.
+         * @param view: Time picker view
+         * @param hourOfDay: Selected hour
+         * @param minute: Selected minute
+         */
         public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
             if(flag == 0 ) {
                 startHour = hourOfDay;
@@ -150,40 +189,67 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
         }
     }
 
+    /**
+     * Display time picker dialog.
+     * @param v: view object
+     */
     public void showTimePickerDialog(View v) {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
         flag = 0;
     }
 
+    /**
+     * Display time picker dialog 1.
+     * @param v
+     */
     public void showTimePickerDialog1(View v) {
         DialogFragment newFragment = new TimePickerFragment();
         newFragment.show(getSupportFragmentManager(), "timePicker");
         flag = 1;
     }
 
+    /**
+     * Set color to red.
+     * @param view: view object
+     */
     public void red(View view){
         color = 1;
 
     }
 
+    /**
+     * Set color to yellow.
+     * @param view: view object
+     */
     public void yellow(View view){
         color = 2;
 
     }
 
+    /**
+     * Set color to green
+     * @param view: view object
+     */
     public void green(View view){
         color = 3;
 
     }
 
+    /**
+     * Set color to blue
+     * @param view: view object
+     */
     public void blue(View view){
         color = 4;
 
     }
 
 
-
+    /**
+     * Set values and return to main.
+     * @param view: view object
+     */
     public void backToMain(View view) {
 
 
@@ -399,30 +465,53 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
         finish();
     }
 
+    /**
+     * Remove event method.
+     * @param view: view object
+     */
     public void remove(View view){
         MainActivity.removeEventFromList(MainActivity.getObjectEvent());
         MainActivity.main.finish();
         startActivity(new Intent(this, MainActivity.class));
     }
 
+    /**
+     * Set event to repeat weekly.
+     * @param view: view object
+     */
     public void repeatWeek(View view){
         repeatW = 1;
     }
 
+    /**
+     * Set event to repeat monthly.
+     * @param view: view object
+     */
     public void repeatMonth(View view){
         repeatM = 1;}
 
 
+    /**
+     * Nothing selected method.
+     * @param parent: adapter view
+     */
     public void onNothingSelected(AdapterView<?> parent) {
 
         reminderms = -1;
     }
 
+    /**
+     * Set event to repeat yearly.
+     * @param view: view object
+     */
     public void repeatYear(View view){
         repeatY = 1;
     }
 
 
+    /**
+     * Create reminder method.
+     */
     public void reminderSet() {
 
         // Flag for whether or not a reminder needs to be created
@@ -449,6 +538,14 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
     }
 
     // Overridden spinner methods for reminder selection
+
+    /**
+     * Overridden onItemSelected method.
+     * @param parent: parent adapter
+     * @param view: view object
+     * @param pos: position
+     * @param id: id
+     */
     public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
         // Switch statement to set the proper reminder time
         switch (pos) {

@@ -16,6 +16,8 @@ import com.alamkanak.weekview.sample.R;
 import java.util.Calendar;
 
 /**
+ * Alarm receiver class.
+ * Handles reminders.
  * Created by Parker Franklin on 12/6/2015.
  */
 public class AlarmReceiver extends BroadcastReceiver {
@@ -25,6 +27,11 @@ public class AlarmReceiver extends BroadcastReceiver {
     private String eventTitle;
     private Context mContext;
 
+    /**
+     * Overridden onReceive method.
+     * @param context: context object
+     * @param intent: Intent containing start time and title
+     */
     @Override
     public void onReceive(Context context, Intent intent) {
         startHour = intent.getIntExtra("hour", 0);
