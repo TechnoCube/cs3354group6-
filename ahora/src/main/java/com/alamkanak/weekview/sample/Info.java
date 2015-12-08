@@ -87,6 +87,8 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
             eD1.setText(MainActivity.getElocation());
             MainActivity.removeEventFromList(MainActivity.getObjectEvent());
             MainActivity.setEventClickFlag();
+
+
         }
 
 
