@@ -42,12 +42,15 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
     private WeekView mWeekView;
     Info info = new Info();
     public static int eventClickFlag = 0;
-    private static List<WeekViewEvent> mEventList = new ArrayList<>();
+    public static List<WeekViewEvent> mEventList = new ArrayList<>();
     public static String eName;
     public static String eLocation;
     public static WeekViewEvent eventObject;
     public static Activity main;
     public static final String EVENT_FILE = "ahora_data";
+    public static final int event_color_05 = 0x7b1a765c;
+    public static final int event_color_06 = 0x7b0c005c;
+
 
 
     public static int getEventClickFlag() {
@@ -72,6 +75,7 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
 
         main = this;
 
@@ -101,6 +105,16 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
         setupDateTimeInterpreter(false);
+
+        clearAll();
+
+        if(mEventList.isEmpty()){
+            addWeekEnds();
+            holidays();
+        }
+
+
+
 
 
 
@@ -179,6 +193,10 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
             return (true);
         }
 
+//        if(item.getItemId()==R.id.clear){
+//            clearAll();
+//        }
+
 
         return super.onOptionsItemSelected(item);
     }
@@ -228,6 +246,9 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
 
 
         return mEventList;
+
+
+
     }
 
     /**
@@ -339,6 +360,279 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
             ex.printStackTrace();
         }
     }
+
+    public void addWeekEnds(){
+
+    for(int y =2015; y < 2017; y++ ) {
+            for (int m = 0; m < 12; m++) {
+
+                Calendar check = Calendar.getInstance();
+                check.set(Calendar.MONTH, m);
+                int satNum = check.getActualMaximum(Calendar.WEEK_OF_MONTH);
+
+                for (int i = 0; i < satNum; i ++) {
+                Calendar startTime = Calendar.getInstance();
+                startTime.set(Calendar.HOUR_OF_DAY, 0);
+                startTime.set(Calendar.MINUTE, 0);
+                startTime.set(Calendar.DAY_OF_WEEK, 7);
+                startTime.set(Calendar.WEEK_OF_MONTH, i);
+                startTime.set(Calendar.MONTH, m);
+                startTime.set(Calendar.YEAR, y);
+
+
+
+                Calendar endTime = Calendar.getInstance();
+                endTime.set(Calendar.HOUR_OF_DAY, 24);
+                endTime.set(Calendar.MINUTE, 0);
+                endTime.set(Calendar.DAY_OF_WEEK, 7);
+                endTime.set(Calendar.WEEK_OF_MONTH, i);
+                endTime.set(Calendar.MONTH, m);
+                endTime.set(Calendar.YEAR, y);
+
+
+
+                WeekViewEvent event = new WeekViewEvent(1, "", "", startTime, endTime);
+                event.setColor(event_color_05);
+                addEventToList(event);
+            }
+        }
+    }
+
+        for(int y =2015; y < 2017; y++ ) {
+            for (int m = 0; m < 12; m++) {
+
+                Calendar check = Calendar.getInstance();
+                check.set(Calendar.MONTH, m);
+                int sunNum = check.getActualMaximum(Calendar.WEEK_OF_MONTH);
+
+                for (int i = 0; i < sunNum; i ++) {
+                    Calendar startTime = Calendar.getInstance();
+                    startTime.set(Calendar.HOUR_OF_DAY, 0);
+                    startTime.set(Calendar.MINUTE, 0);
+                    startTime.set(Calendar.DAY_OF_WEEK, 1);
+                    startTime.set(Calendar.WEEK_OF_MONTH, i);
+                    startTime.set(Calendar.MONTH, m);
+                    startTime.set(Calendar.YEAR, y);
+
+                    Calendar endTime = Calendar.getInstance();
+                    endTime.set(Calendar.HOUR_OF_DAY, 24);
+                    endTime.set(Calendar.MINUTE, 0);
+                    endTime.set(Calendar.DAY_OF_WEEK, 1);
+                    endTime.set(Calendar.WEEK_OF_MONTH, i);
+                    endTime.set(Calendar.MONTH, m);
+                    endTime.set(Calendar.YEAR, y);
+
+                    WeekViewEvent event = new WeekViewEvent(1, "", "", startTime, endTime);
+                    event.setColor(event_color_05);
+                    addEventToList(event);
+                }
+            }
+        }
+
+    }
+
+    public void holidays(){
+        for(int y = 2015; y < 2018; y++)
+        {
+            //New Year’s Day
+            Calendar NewYearDay = Calendar.getInstance();
+            NewYearDay.set(Calendar.HOUR_OF_DAY, 0);
+            NewYearDay.set(Calendar.MINUTE, 0);
+            NewYearDay.set(Calendar.DAY_OF_MONTH, 1);
+            NewYearDay.set(Calendar.MONTH, 0);
+            NewYearDay.set(Calendar.YEAR, y);
+
+            Calendar endNewYearDay = Calendar.getInstance();
+            endNewYearDay.set(Calendar.HOUR_OF_DAY, 23);
+            endNewYearDay.set(Calendar.MINUTE, 59);
+            endNewYearDay.set(Calendar.DAY_OF_MONTH, 1);
+            endNewYearDay.set(Calendar.MONTH, 0);
+            endNewYearDay.set(Calendar.YEAR, y);
+
+            WeekViewEvent eventNewYearDay = new WeekViewEvent(1, "New Year’s Day", "", NewYearDay, endNewYearDay);
+            eventNewYearDay.setColor(event_color_06);
+            addEventToList(eventNewYearDay);
+
+            //Birthday of Martin Luther King, Jr.
+            Calendar MLK = Calendar.getInstance();
+            MLK.set(Calendar.HOUR_OF_DAY, 0);
+            MLK.set(Calendar.MINUTE, 0);
+            MLK.set(Calendar.DAY_OF_MONTH, 19);
+            MLK.set(Calendar.MONTH, 0);
+            MLK.set(Calendar.YEAR, y);
+
+            Calendar endMLK = Calendar.getInstance();
+            endMLK.set(Calendar.HOUR_OF_DAY, 23);
+            endMLK.set(Calendar.MINUTE, 59);
+            endMLK.set(Calendar.DAY_OF_MONTH, 19);
+            endMLK.set(Calendar.MONTH, 0);
+            endMLK.set(Calendar.YEAR, y);
+
+            WeekViewEvent eventMLK = new WeekViewEvent(1, "Martin Luther King's day", "", MLK, endMLK);
+            eventMLK.setColor(event_color_06);
+            addEventToList(eventMLK);
+
+            //Washington’s Birthday
+            Calendar Washington = Calendar.getInstance();
+            Washington.set(Calendar.HOUR_OF_DAY, 0);
+            Washington.set(Calendar.MINUTE, 0);
+            Washington.set(Calendar.DAY_OF_MONTH, 16);
+            Washington.set(Calendar.MONTH, 1);
+            Washington.set(Calendar.YEAR, y);
+
+            Calendar endWashington = Calendar.getInstance();
+            endWashington.set(Calendar.HOUR_OF_DAY, 23);
+            endWashington.set(Calendar.MINUTE, 59);
+            endWashington.set(Calendar.DAY_OF_MONTH, 16);
+            endWashington.set(Calendar.MONTH, 1);
+            endWashington.set(Calendar.YEAR, y);
+
+            WeekViewEvent eventWashington = new WeekViewEvent(1, "Martin Luther King's day", "", Washington, endWashington);
+            eventWashington.setColor(event_color_06);
+            addEventToList(eventWashington);
+
+            //Memorial Day
+            Calendar Memorial = Calendar.getInstance();
+            Memorial.set(Calendar.HOUR_OF_DAY, 0);
+            Memorial.set(Calendar.MINUTE, 0);
+            Memorial.set(Calendar.DAY_OF_MONTH, 25);
+            Memorial.set(Calendar.MONTH, 4);
+            Memorial.set(Calendar.YEAR, y);
+
+            Calendar endMemorial = Calendar.getInstance();
+            endMemorial.set(Calendar.HOUR_OF_DAY, 23);
+            endMemorial.set(Calendar.MINUTE, 59);
+            endMemorial.set(Calendar.DAY_OF_MONTH, 25);
+            endMemorial.set(Calendar.MONTH, 4);
+            endMemorial.set(Calendar.YEAR, y);
+
+            WeekViewEvent eventMemorial = new WeekViewEvent(1, "Memorial Day", "", Memorial, endMemorial);
+            eventMemorial.setColor(event_color_06);
+            addEventToList(eventMemorial);
+
+            //Independence Day
+            Calendar Independence = Calendar.getInstance();
+            Independence.set(Calendar.HOUR_OF_DAY, 0);
+            Independence.set(Calendar.MINUTE, 0);
+            Independence.set(Calendar.DAY_OF_MONTH, 4);
+            Independence.set(Calendar.MONTH, 5);
+            Independence.set(Calendar.YEAR, y);
+
+            Calendar endIndependence = Calendar.getInstance();
+            endIndependence.set(Calendar.HOUR_OF_DAY, 23);
+            endIndependence.set(Calendar.MINUTE, 59);
+            endIndependence.set(Calendar.DAY_OF_MONTH, 4);
+            endIndependence.set(Calendar.MONTH, 5);
+            endIndependence.set(Calendar.YEAR, y);
+
+            WeekViewEvent eventIndependence = new WeekViewEvent(1, "Independence Day", "", Independence, endIndependence);
+            eventIndependence.setColor(event_color_06);
+            addEventToList(eventIndependence);
+
+            //Labor Day
+            Calendar Labor = Calendar.getInstance();
+            Labor.set(Calendar.HOUR_OF_DAY, 0);
+            Labor.set(Calendar.MINUTE, 0);
+            Labor.set(Calendar.DAY_OF_MONTH, 7);
+            Labor.set(Calendar.MONTH, 8);
+            Labor.set(Calendar.YEAR, y);
+
+            Calendar endLabor = Calendar.getInstance();
+            endLabor.set(Calendar.HOUR_OF_DAY, 23);
+            endLabor.set(Calendar.MINUTE, 59);
+            endLabor.set(Calendar.DAY_OF_MONTH, 7);
+            endLabor.set(Calendar.MONTH, 8);
+            endLabor.set(Calendar.YEAR, y);
+
+            WeekViewEvent eventLabor = new WeekViewEvent(1, "Labor Day", "", Labor, endLabor);
+            eventLabor.setColor(event_color_06);
+            addEventToList(eventLabor);
+
+            //Columbus Day
+            Calendar Columbus = Calendar.getInstance();
+            Columbus.set(Calendar.HOUR_OF_DAY, 0);
+            Columbus.set(Calendar.MINUTE, 0);
+            Columbus.set(Calendar.DAY_OF_MONTH, 12);
+            Columbus.set(Calendar.MONTH, 9);
+            Columbus.set(Calendar.YEAR, y);
+
+            Calendar endColumbus = Calendar.getInstance();
+            endColumbus.set(Calendar.HOUR_OF_DAY, 23);
+            endColumbus.set(Calendar.MINUTE, 59);
+            endColumbus.set(Calendar.DAY_OF_MONTH, 12);
+            endColumbus.set(Calendar.MONTH, 9);
+            endColumbus.set(Calendar.YEAR, y);
+
+            WeekViewEvent eventColumbus = new WeekViewEvent(1, "Columbus Day", "", Columbus, endColumbus);
+            eventColumbus.setColor(event_color_06);
+            addEventToList(eventColumbus);
+
+            //Veterans Day
+            Calendar Veterans = Calendar.getInstance();
+            Veterans.set(Calendar.HOUR_OF_DAY, 0);
+            Veterans.set(Calendar.MINUTE, 0);
+            Veterans.set(Calendar.DAY_OF_MONTH, 11);
+            Veterans.set(Calendar.MONTH, 10);
+            Veterans.set(Calendar.YEAR, y);
+
+            Calendar endVeterans = Calendar.getInstance();
+            endVeterans.set(Calendar.HOUR_OF_DAY, 23);
+            endVeterans.set(Calendar.MINUTE, 59);
+            endVeterans.set(Calendar.DAY_OF_MONTH, 11);
+            endVeterans.set(Calendar.MONTH, 10);
+            endVeterans.set(Calendar.YEAR, y);
+
+            WeekViewEvent eventVeterans = new WeekViewEvent(1, "Veterans Day", "", Veterans, endVeterans);
+            eventVeterans.setColor(event_color_06);
+            addEventToList(eventVeterans);
+
+            //Thanksgiving Day
+            Calendar thanksgiving = Calendar.getInstance();
+            thanksgiving.set(Calendar.HOUR_OF_DAY, 0);
+            thanksgiving.set(Calendar.MINUTE, 0);
+            thanksgiving.set(Calendar.DAY_OF_MONTH, 26);
+            thanksgiving.set(Calendar.MONTH, 10);
+            thanksgiving.set(Calendar.YEAR, y);
+
+            Calendar endthanksgiving = Calendar.getInstance();
+            endthanksgiving.set(Calendar.HOUR_OF_DAY, 23);
+            endthanksgiving.set(Calendar.MINUTE, 59);
+            endthanksgiving.set(Calendar.DAY_OF_MONTH, 26);
+            endthanksgiving.set(Calendar.MONTH, 10);
+            endthanksgiving.set(Calendar.YEAR, y);
+
+            WeekViewEvent eventthanksgiving = new WeekViewEvent(1, "Thanksgiving Day", "", thanksgiving, endthanksgiving);
+            eventthanksgiving.setColor(event_color_06);
+            addEventToList(eventthanksgiving);
+
+            //Christmas
+            Calendar Christmas = Calendar.getInstance();
+            Christmas.set(Calendar.HOUR_OF_DAY, 0);
+            Christmas.set(Calendar.MINUTE, 0);
+            Christmas.set(Calendar.DAY_OF_MONTH, 25);
+            Christmas.set(Calendar.MONTH, 11);
+            Christmas.set(Calendar.YEAR, y);
+
+            Calendar endChristmas = Calendar.getInstance();
+            endChristmas.set(Calendar.HOUR_OF_DAY, 23);
+            endChristmas.set(Calendar.MINUTE, 59);
+            endChristmas.set(Calendar.DAY_OF_MONTH, 25);
+            endChristmas.set(Calendar.MONTH, 11);
+            endChristmas.set(Calendar.YEAR, y);
+
+            WeekViewEvent eventChristmas = new WeekViewEvent(1, "Christmas", "", Christmas, endChristmas);
+            eventChristmas.setColor(event_color_06);
+            addEventToList(eventChristmas);
+
+        }
+
+    }
+
+    public void clearAll(){
+        mEventList.clear();
+    }
+
+
 
 
 }
