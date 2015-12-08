@@ -410,7 +410,9 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
     }
 
     public void repeatMonth(View view){
-        repeatM = 1;
+        repeatM = 1;}
+
+
     public void onNothingSelected(AdapterView<?> parent) {
 
         reminderms = -1;
@@ -443,6 +445,49 @@ public class Info extends ActionBarActivity implements AdapterView.OnItemSelecte
             reminderTime.set(Calendar.YEAR, myYear);
             alarmManager.set(AlarmManager.RTC_WAKEUP, (reminderTime.getTimeInMillis() - reminderms), pendingIntent);
             Toast.makeText(this, "Reminder set", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    // Overridden spinner methods for reminder selection
+    public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+        // Switch statement to set the proper reminder time
+        switch (pos) {
+            case 0:
+                reminderms = -1;
+                break;
+            case 1:
+                reminderms = 0;
+                break;
+            case 2:
+                reminderms = 1000 * 60;
+                break;
+            case 3:
+                reminderms = 1000 * 60 * 5;
+                break;
+            case 4:
+                reminderms = 1000 * 60 * 15;
+                break;
+            case 5:
+                reminderms = 1000 * 60 * 30;
+                break;
+            case 6:
+                reminderms = 1000 * 60 * 60;
+                break;
+            case 7:
+                reminderms = 1000 * 60 * 60 * 2;
+                break;
+            case 8:
+                reminderms = 1000 * 60 * 60 * 4;
+                break;
+            case 9:
+                reminderms = 1000 * 60 * 60 * 12;
+                break;
+            case 10:
+                reminderms = 1000 * 60 * 60 * 24;
+                break;
+            default:
+                reminderms = -1;
+                break;
         }
     }
 
