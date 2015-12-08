@@ -17,7 +17,7 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="5dp"
         android:hint="Event Name"/>
 
     <EditText
@@ -27,7 +27,7 @@
         android:layout_below="@+id/editText"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="10dp"
         android:hint="Location"/>
 
     <Button
@@ -39,7 +39,7 @@
         android:layout_below="@+id/editText2"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="15dp"
         android:onClick="showTimePickerDialog"/>
 
     <Button
@@ -70,22 +70,20 @@
         android:layout_height="wrap_content"
         android:text="SAVE"
         android:id="@+id/save"
-        android:layout_below="@+id/day"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="140dp"
+        android:layout_marginTop="430dp"
         android:onClick="backToMain"/>
 
     <CheckBox
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/checkBox"
-        android:layout_marginTop="48dp"
+        android:layout_marginTop="340dp"
         android:checked="false"
         android:background="#ff0000"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="25dp"
         android:layout_marginStart="40dp"
-        android:layout_below="@+id/day"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:onClick="red"/>
@@ -135,13 +133,57 @@
         android:layout_height="wrap_content"
         android:text="Delete"
         android:id="@+id/button"
-        android:layout_below="@+id/checkBox"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="380dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
         android:layout_alignRight="@+id/save"
         android:layout_alignEnd="@+id/save"
         android:onClick="remove"/>
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButton"
+        android:layout_marginTop="265dp"
+        android:layout_marginLeft="125dp"
+        android:checked="false"
+        android:onClick="repeatWeek"/>
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButton2"
+        android:layout_marginTop="265dp"
+        android:layout_marginLeft="205dp"
+        android:checked="false"
+        android:onClick="repeatMonth"/>
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/radioButton3"
+        android:layout_marginTop="265dp"
+        android:layout_marginLeft="285dp"
+        android:checked="false"
+        android:onClick="repeatYear"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Repeat"
+        android:id="@+id/textView2"
+        android:layout_marginTop="270dp"
+        android:layout_marginLeft="30dp"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Every:          Week       Month        Year"
+        android:id="@+id/textView3"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="30dp" />
 
 
 </RelativeLayout>

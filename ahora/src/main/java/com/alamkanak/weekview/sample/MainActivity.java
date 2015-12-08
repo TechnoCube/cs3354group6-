@@ -40,7 +40,7 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
     private WeekView mWeekView;
     Info info = new Info();
     public static int eventClickFlag = 0;
-    private static List<WeekViewEvent> mEventList = new ArrayList<>();
+    public static List<WeekViewEvent> mEventList = new ArrayList<>();
     public static String eName;
     public static String eLocation;
     public static WeekViewEvent eventObject;
@@ -98,6 +98,8 @@ public class MainActivity extends ActionBarActivity implements WeekView.MonthCha
         // Set up a date time interpreter to interpret how the date and time will be formatted in
         // the week view. This is optional.
         setupDateTimeInterpreter(false);
+
+        //clearAll();
 
         if(mEventList.isEmpty()){
             addWeekEnds();
